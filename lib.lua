@@ -1,42 +1,5 @@
-local backFrame = Instance.new("Frame")
-
 local UIS = game:GetService('UserInputService')
 local TS = game:GetService("TweenService")
-local frame = backFrame
-local dragToggle = nil
-local dragSpeed = 0.25
-local dragStart = nil
-local startPos = nil
-
-local function updateInput(input)
-	local delta = input.Position - dragStart
-	local position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X,
-		startPos.Y.Scale, startPos.Y.Offset + delta.Y)
-	game:GetService('TweenService'):Create(frame, TweenInfo.new(dragSpeed), {Position = position}):Play()
-end
-
-
-frame.InputBegan:Connect(function(input)
-	if (input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch) then 
-		dragToggle = true
-		dragStart = input.Position
-		startPos = frame.Position
-		input.Changed:Connect(function()
-			if input.UserInputState == Enum.UserInputState.End then
-				dragToggle = false
-			end
-		end)
-	end
-end)
-
-UIS.InputChanged:Connect(function(input)
-	if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
-		if dragToggle then
-			updateInput(input)
-		end
-	end
-end)
-
 local WindowTable = {}
 
 for i,v in pairs(game.Players.LocalPlayer.PlayerGui:GetChildren()) do
@@ -158,10 +121,10 @@ function WindowTable:Window(title, gameName)
 			TS:Create(v, TweenInfo.new(0), {Position = UDim2.new(-.5,0,1.5,0)}):Play()
 		end
 	end
-	introClipper.mH.TextTransparency = 1
-	introClipper.title.TextTransparency = 1
-	introClipper.mH.Size = UDim2.new(1,0,1,0)
-	TS:Create(introClipper.UIPadding, TweenInfo.new(0), {PaddingTop=UDim.new(0,1),PaddingBottom=UDim.new(0,1),PaddingLeft=UDim.new(0,1),PaddingRight=UDim.new(0,1)}):Play()
+	mH.TextTransparency = 1
+	title.TextTransparency = 1
+	mH.Size = UDim2.new(1,0,1,0)
+	TS:Create(UIPadding, TweenInfo.new(0), {PaddingTop=UDim.new(0,1),PaddingBottom=UDim.new(0,1),PaddingLeft=UDim.new(0,1),PaddingRight=UDim.new(0,1)}):Play()
 	task.wait(1.5)
 	for _,v:Frame in pairs(tempTable) do
 		if v.Name == "1" then
@@ -175,13 +138,13 @@ function WindowTable:Window(title, gameName)
 		end
 		task.wait(tweentime)
 	end
-	TS:Create(introClipper.UIPadding, TweenInfo.new(.5), { PaddingTop=UDim.new(0,2), PaddingBottom=UDim.new(0,2), PaddingLeft=UDim.new(0,2), PaddingRight=UDim.new(0,2) }):Play()
+	TS:Create(UIPadding, TweenInfo.new(.5), { PaddingTop=UDim.new(0,2), PaddingBottom=UDim.new(0,2), PaddingLeft=UDim.new(0,2), PaddingRight=UDim.new(0,2) }):Play()
 	task.wait(.75)
-	TS:Create(introClipper.mH, TweenInfo.new(.5), {TextTransparency=0}):Play()
+	TS:Create(mH, TweenInfo.new(.5), {TextTransparency=0}):Play()
 	task.wait(1)
-	TS:Create(introClipper.mH, TweenInfo.new(.5), {Size=UDim2.new(1, 0,0.729, 0)}):Play()
-	TS:Create(introClipper.mH, TweenInfo.new(.5), {Position=UDim2.new(0, 0,0, 0)}):Play()
-	TS:Create(introClipper.title, TweenInfo.new(.5), {TextTransparency=0}):Play()
+	TS:Create(mH, TweenInfo.new(.5), {Size=UDim2.new(1, 0,0.729, 0)}):Play()
+	TS:Create(mH, TweenInfo.new(.5), {Position=UDim2.new(0, 0,0, 0)}):Play()
+	TS:Create(title, TweenInfo.new(.5), {TextTransparency=0}):Play()
 	task.wait(2)
 	TS:Create(introClipper, TweenInfo.new(.5), {Rotation=360}):Play()
 	for _,v:Frame in pairs(tempTable) do
@@ -189,8 +152,164 @@ function WindowTable:Window(title, gameName)
 			TS:Create(v, TweenInfo.new(.5), {BackgroundTransparency = 1}):Play()
 		end
 	end
-	TS:Create(introClipper.title, TweenInfo.new(.5), {TextTransparency=1}):Play()
-	TS:Create(introClipper.mH, TweenInfo.new(.5), {TextTransparency=1}):Play()
+	TS:Create(title, TweenInfo.new(.5), {TextTransparency=1}):Play()
+	TS:Create(mH, TweenInfo.new(.5), {TextTransparency=1}):Play()
+	task.wait(1)
+	introClipper:Destroy()
+	
+	local hub = Instance.new("Frame")
+	hub.Name = "hub"
+	hub.AnchorPoint = Vector2.new(0.5, 0.5)
+	hub.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+	hub.BorderSizePixel = 0
+	hub.Position = UDim2.fromScale(0.171, 0.499)
+	hub.Size = UDim2.fromOffset(447, 280)
+
+	local title = Instance.new("TextLabel")
+	title.Name = "title"
+	title.FontFace = Font.new("rbxasset://fonts/families/RobotoMono.json")
+	title.Text = "mopsHub"
+	title.TextColor3 = Color3.fromRGB(177, 177, 177)
+	title.TextSize = 18
+	title.TextXAlignment = Enum.TextXAlignment.Left
+	title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	title.BackgroundTransparency = 1
+	title.BorderSizePixel = 0
+	title.Size = UDim2.fromScale(1, 0.112)
+
+	local uIPadding = Instance.new("UIPadding")
+	uIPadding.Name = "UIPadding"
+	uIPadding.PaddingLeft = UDim.new(0, 10)
+	uIPadding.PaddingRight = UDim.new(0, 10)
+	uIPadding.Parent = title
+
+	local div = Instance.new("Frame")
+	div.Name = "div"
+	div.AnchorPoint = Vector2.new(0.5, 1)
+	div.BackgroundColor3 = Color3.fromRGB(31, 31, 31)
+	div.BorderSizePixel = 0
+	div.Position = UDim2.fromScale(0.5, 1)
+	div.Size = UDim2.new(1, 0, 0, 1)
+	div.Parent = title
+
+	title.Parent = hub
+
+	local hbtns = Instance.new("Frame")
+	hbtns.Name = "hbtns"
+	hbtns.AnchorPoint = Vector2.new(1, 0)
+	hbtns.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	hbtns.BackgroundTransparency = 1
+	hbtns.BorderSizePixel = 0
+	hbtns.Position = UDim2.fromScale(1, 0)
+	hbtns.Size = UDim2.fromOffset(116, 30)
+
+	local uIListLayout = Instance.new("UIListLayout")
+	uIListLayout.Name = "UIListLayout"
+	uIListLayout.FillDirection = Enum.FillDirection.Horizontal
+	uIListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Right
+	uIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+	uIListLayout.Parent = hbtns
+
+	local min = Instance.new("TextButton")
+	min.Name = "min"
+	min.FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json")
+	min.Text = "_"
+	min.TextColor3 = Color3.fromRGB(177, 177, 177)
+	min.TextSize = 14
+	min.TextWrapped = true
+	min.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	min.BackgroundTransparency = 1
+	min.BorderSizePixel = 0
+	min.Size = UDim2.fromOffset(30, 30)
+	min.Parent = hbtns
+
+	local close = Instance.new("TextButton")
+	close.Name = "close"
+	close.FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json")
+	close.Text = "X"
+	close.TextColor3 = Color3.fromRGB(177, 177, 177)
+	close.TextSize = 14
+	close.TextWrapped = true
+	close.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	close.BackgroundTransparency = 1
+	close.BorderSizePixel = 0
+	close.Size = UDim2.fromOffset(30, 30)
+	close.Parent = hbtns
+
+	hbtns.Parent = hub
+
+	local uIStroke = Instance.new("UIStroke")
+	uIStroke.Name = "UIStroke"
+	uIStroke.Color = Color3.fromRGB(31, 31, 31)
+	uIStroke.Parent = hub
+
+	local uICorner = Instance.new("UICorner")
+	uICorner.Name = "UICorner"
+	uICorner.CornerRadius = UDim.new(0, 2)
+	uICorner.Parent = hub
+
+	local main = Instance.new("Frame")
+	main.Name = "main"
+	main.AnchorPoint = Vector2.new(0, 0.5)
+	main.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+	main.BackgroundTransparency = 1
+	main.BorderSizePixel = 0
+	main.Position = UDim2.fromScale(0, 0.556)
+	main.Size = UDim2.fromScale(1, 0.888)
+	main.ZIndex = 2
+
+	local tabs = Instance.new("Frame")
+	tabs.Name = "tabs"
+	tabs.AnchorPoint = Vector2.new(0, 0.5)
+	tabs.BackgroundColor3 = Color3.fromRGB(31, 31, 31)
+	tabs.BackgroundTransparency = 1
+	tabs.BorderSizePixel = 0
+	tabs.Position = UDim2.fromScale(0, 0.5)
+	tabs.Size = UDim2.fromScale(0.174, 1)
+	tabs.ZIndex = 2
+
+	local uICorner1 = Instance.new("UICorner")
+	uICorner1.Name = "UICorner"
+	uICorner1.CornerRadius = UDim.new(0, 2)
+	uICorner1.Parent = tabs
+
+	local div1 = Instance.new("Frame")
+	div1.Name = "div"
+	div1.AnchorPoint = Vector2.new(0.5, 1)
+	div1.BackgroundColor3 = Color3.fromRGB(31, 31, 31)
+	div1.BorderSizePixel = 0
+	div1.Position = UDim2.fromScale(1.05, 1)
+	div1.Size = UDim2.new(0, 1, 1, 0)
+	div1.Parent = tabs
+
+	local list = Instance.new("Frame")
+	list.Name = "list"
+	list.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	list.BackgroundTransparency = 1
+	list.BorderSizePixel = 0
+	list.Size = UDim2.fromScale(1, 1)
+
+	local uIListLayout1 = Instance.new("UIListLayout")
+	uIListLayout1.Name = "UIListLayout"
+	uIListLayout1.SortOrder = Enum.SortOrder.LayoutOrder
+	uIListLayout1.Parent = list
+
+	list.Parent = tabs
+
+	tabs.Parent = main
+
+	local uIPadding1 = Instance.new("UIPadding")
+	uIPadding1.Name = "UIPadding"
+	uIPadding1.PaddingBottom = UDim.new(0, 5)
+	uIPadding1.PaddingLeft = UDim.new(0, 5)
+	uIPadding1.PaddingRight = UDim.new(0, 5)
+	uIPadding1.PaddingTop = UDim.new(0, 5)
+	uIPadding1.Parent = main
+
+	main.Parent = hub
+	hub.Parent = mopshubui
+	
+	title.Text = WindowTitle or "mopsHub"
 end
 
 return WindowTable
