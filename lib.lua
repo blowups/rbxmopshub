@@ -2,16 +2,16 @@ local UIS = game:GetService('UserInputService')
 local TS = game:GetService("TweenService")
 local WindowTable = {}
 
-for i,v in pairs(game.Players.LocalPlayer.PlayerGui:GetChildren()) do
+for i,v in pairs(game.CoreGui:GetChildren()) do
 	if v.Name == "mopshubui" then
 		v:Destroy()
 	end
 end
 
-function WindowTable:Window(title, gameName)
-	local WindowTitle = title or "mopsHub"
-	local gameName = game.Name or gameName or "-"
-	
+function WindowTable:Window(args)
+	local WindowTitle = args.title or "mopsHub"
+	local gameName = args.gameName or game.Name or "-"
+
 	-- Instances:
 
 	local mopshubui = Instance.new("ScreenGui")
@@ -27,7 +27,7 @@ function WindowTable:Window(title, gameName)
 	--Properties:
 
 	mopshubui.Name = "mopshubui"
-	mopshubui.Parent = game.Players.LocalPlayer.PlayerGui
+	mopshubui.Parent = game.CoreGui
 	mopshubui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
 	introClipper.Name = "introClipper"
@@ -102,9 +102,9 @@ function WindowTable:Window(title, gameName)
 	title.TextScaled = true
 	title.TextSize = 43.000
 	title.TextWrapped = true
-	
+
 	local tempTable,tweentime = {}, .5
-	
+
 	for _,v in pairs(introClipper:GetChildren()) do
 		if v:IsA("Frame") then
 			table.insert(tempTable,v)
@@ -156,7 +156,7 @@ function WindowTable:Window(title, gameName)
 	TS:Create(mH, TweenInfo.new(.5), {TextTransparency=1}):Play()
 	task.wait(1)
 	introClipper:Destroy()
-	
+
 	local hub = Instance.new("Frame")
 	hub.Name = "hub"
 	hub.AnchorPoint = Vector2.new(0.5, 0.5)
@@ -168,7 +168,7 @@ function WindowTable:Window(title, gameName)
 	local title = Instance.new("TextLabel")
 	title.Name = "title"
 	title.FontFace = Font.new("rbxasset://fonts/families/RobotoMono.json")
-	title.Text = "mopsHub"
+	title.Text = "mopsHub - "..gameName
 	title.TextColor3 = Color3.fromRGB(177, 177, 177)
 	title.TextSize = 18
 	title.TextXAlignment = Enum.TextXAlignment.Left
@@ -265,7 +265,7 @@ function WindowTable:Window(title, gameName)
 	tabs.BackgroundTransparency = 1
 	tabs.BorderSizePixel = 0
 	tabs.Position = UDim2.fromScale(0, 0.5)
-	tabs.Size = UDim2.fromScale(0.174, 1)
+	tabs.Size = UDim2.fromScale(0.227, 1)
 	tabs.ZIndex = 2
 
 	local uICorner1 = Instance.new("UICorner")
@@ -275,10 +275,10 @@ function WindowTable:Window(title, gameName)
 
 	local div1 = Instance.new("Frame")
 	div1.Name = "div"
-	div1.AnchorPoint = Vector2.new(0.5, 1)
+	div1.AnchorPoint = Vector2.new(1, 0.5)
 	div1.BackgroundColor3 = Color3.fromRGB(31, 31, 31)
 	div1.BorderSizePixel = 0
-	div1.Position = UDim2.fromScale(1.05, 1)
+	div1.Position = UDim2.fromScale(1, 0.5)
 	div1.Size = UDim2.new(0, 1, 1, 0)
 	div1.Parent = tabs
 
@@ -291,25 +291,117 @@ function WindowTable:Window(title, gameName)
 
 	local uIListLayout1 = Instance.new("UIListLayout")
 	uIListLayout1.Name = "UIListLayout"
+	uIListLayout1.Padding = UDim.new(0, 3)
 	uIListLayout1.SortOrder = Enum.SortOrder.LayoutOrder
 	uIListLayout1.Parent = list
+
+	local uIPadding1 = Instance.new("UIPadding")
+	uIPadding1.Name = "UIPadding"
+	uIPadding1.PaddingRight = UDim.new(0, 5)
+	uIPadding1.Parent = list
 
 	list.Parent = tabs
 
 	tabs.Parent = main
 
-	local uIPadding1 = Instance.new("UIPadding")
-	uIPadding1.Name = "UIPadding"
-	uIPadding1.PaddingBottom = UDim.new(0, 5)
-	uIPadding1.PaddingLeft = UDim.new(0, 5)
-	uIPadding1.PaddingRight = UDim.new(0, 5)
-	uIPadding1.PaddingTop = UDim.new(0, 5)
-	uIPadding1.Parent = main
+	local uIPadding2 = Instance.new("UIPadding")
+	uIPadding2.Name = "UIPadding"
+	uIPadding2.PaddingBottom = UDim.new(0, 5)
+	uIPadding2.PaddingLeft = UDim.new(0, 5)
+	uIPadding2.PaddingRight = UDim.new(0, 5)
+	uIPadding2.PaddingTop = UDim.new(0, 5)
+	uIPadding2.Parent = main
+
+	local tabsf = Instance.new("Frame")
+	tabsf.Name = "tabsf"
+	tabsf.AnchorPoint = Vector2.new(0.5, 0.5)
+	tabsf.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	tabsf.BackgroundTransparency = 1
+	tabsf.BorderSizePixel = 0
+	tabsf.ClipsDescendants = true
+	tabsf.Position = UDim2.fromScale(0.62, 0.5)
+	tabsf.Size = UDim2.fromScale(0.76, 1)
+
+	local uIPageLayout = Instance.new("UIPageLayout")
+	uIPageLayout.Name = "UIPageLayout"
+	uIPageLayout.EasingDirection = Enum.EasingDirection.InOut
+	uIPageLayout.EasingStyle = Enum.EasingStyle.Cubic
+	uIPageLayout.Padding = UDim.new(0, 15)
+	uIPageLayout.TweenTime = 0.5
+	uIPageLayout.FillDirection = Enum.FillDirection.Vertical
+	uIPageLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
+	uIPageLayout.SortOrder = Enum.SortOrder.LayoutOrder
+	uIPageLayout.VerticalAlignment = Enum.VerticalAlignment.Center
+	uIPageLayout.Parent = tabsf
+
+	tabsf.Parent = main
 
 	main.Parent = hub
 	hub.Parent = mopshubui
-	
+
 	title.Text = WindowTitle or "mopsHub"
+	
+	local TabHandler = {}
+	
+	function TabHandler:CreateTab(args)
+		local TabTitle = args.tabtitle or "Unknown Tab"
+		local btn = Instance.new("TextButton")
+		local tab = Instance.new("Frame")
+		
+		tab.Name = "t0:"..TabTitle
+		tab.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		tab.BackgroundTransparency = 1
+		tab.BorderSizePixel = 0
+		tab.Size = UDim2.fromScale(1, 1)
+		
+		btn.Name = "tbtn:"..TabTitle
+		btn.FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json")
+		btn.Text = TabTitle
+		btn.TextColor3 = Color3.fromRGB(177, 177, 177)
+		btn.TextSize = 11
+		btn.TextWrapped = true
+		btn.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		btn.BackgroundTransparency = 1
+		btn.BorderSizePixel = 0
+		btn.Size = UDim2.new(1, 0, 0, 30)
+		btn.AutoButtonColor = false
+
+		local uICorner = Instance.new("UICorner")
+		uICorner.Name = "UICorner"
+		uICorner.CornerRadius = UDim.new(0, 3)
+		uICorner.Parent = btn
+		
+		btn.MouseEnter:Connect(function()
+			TS:Create(btn, TweenInfo.new(.5), {BackgroundTransparency = .95}):Play()
+		end)
+		btn.MouseLeave:Connect(function()
+			TS:Create(btn, TweenInfo.new(.5), {BackgroundTransparency = 1}):Play()
+		end)
+		
+		btn.Parent = list
+		tab.Parent = tabsf
+	end
+	
+	return TabHandler
 end
 
 return WindowTable
+
+--[[
+local btn = Instance.new("TextButton")
+btn.Name = "btn"
+btn.FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json")
+btn.Text = "Tab Name"
+btn.TextColor3 = Color3.fromRGB(177, 177, 177)
+btn.TextSize = 11
+btn.TextWrapped = true
+btn.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+btn.BackgroundTransparency = 1
+btn.BorderSizePixel = 0
+btn.Size = UDim2.new(1, 0, 0, 30)
+
+local uICorner = Instance.new("UICorner")
+uICorner.Name = "UICorner"
+uICorner.CornerRadius = UDim.new(0, 3)
+uICorner.Parent = btn
+]]
