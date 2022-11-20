@@ -643,129 +643,212 @@ function WindowTable:Window(args)
 		
 		function ElementsHandler:CreateSlider(args, callback)
 			local sliderText = args.sliderText
-			local min,max = args.min,args.max
+			local min,max = args.min or 0,args.max or 10
 			callback = callback or function() end
 			
 			local mouse = game.Players.LocalPlayer:GetMouse()
 			local Value
 			
-			local slider = Instance.new("Frame")
-			slider.Name = "slider"
-			slider.AnchorPoint = Vector2.new(0, 0.5)
+			local sframe = Instance.new("Frame")
+			sframe.Name = "sframe"
+			sframe.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+			sframe.BackgroundTransparency = 1
+			sframe.BorderSizePixel = 0
+			sframe.Size = UDim2.new(1, 0, 0, 30)
+
+			local slider = Instance.new("TextButton")
+			slider.Name = "Slider"
+			slider.FontFace = Font.new("rbxasset://fonts/families/SourceSansPro.json")
+			slider.Text = ""
+			slider.TextColor3 = Color3.fromRGB(0, 0, 0)
+			slider.TextSize = 14
+			slider.AutoButtonColor = false
+			slider.AnchorPoint = Vector2.new(1, 0.5)
 			slider.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-			slider.BackgroundTransparency = 1
+			slider.BackgroundTransparency = 0.95
 			slider.BorderSizePixel = 0
-			slider.Position = UDim2.fromScale(0, 0.0656)
-			slider.Size = UDim2.new(0.894, 0, 0, 30)
+			slider.Position = UDim2.fromScale(1, 0.5)
+			slider.Size = UDim2.fromOffset(150, 10)
 
-			local title = Instance.new("TextLabel")
-			title.Name = "title"
-			title.FontFace = Font.new("rbxasset://fonts/families/RobotoMono.json")
-			title.Text = "Slider"
-			title.TextColor3 = Color3.fromRGB(177, 177, 177)
-			title.TextSize = 14
-			title.TextXAlignment = Enum.TextXAlignment.Left
-			title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-			title.BackgroundTransparency = 1
-			title.BorderSizePixel = 0
-			title.Position = UDim2.fromScale(4.74e-08, 0)
-			title.Size = UDim2.fromScale(0.5, 1)
-			title.Parent = slider
-
-			local slider1 = Instance.new("TextButton")
-			slider1.Name = "Slider"
-			slider1.FontFace = Font.new("rbxasset://fonts/families/ComicNeueAngular.json")
-			slider1.Text = ""
-			slider1.TextColor3 = Color3.fromRGB(0, 0, 0)
-			slider1.TextSize = 14
-			slider1.AutoButtonColor = false
-			slider1.AnchorPoint = Vector2.new(1, 0.5)
-			slider1.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-			slider1.BackgroundTransparency = 0.95
-			slider1.BorderSizePixel = 0
-			slider1.Position = UDim2.fromScale(1, 0.5)
-			slider1.Size = UDim2.fromScale(0.5, 0.15)
-
-			local bar = Instance.new("Frame")
-			bar.Name = "Bar"
-			bar.BackgroundColor3 = Color3.fromRGB(160, 160, 160)
-			bar.BorderSizePixel = 0
-			bar.Size = UDim2.fromScale(0.5, 1)
+			local indicator = Instance.new("Frame")
+			indicator.Name = "Indicator"
+			indicator.BackgroundColor3 = Color3.fromRGB(177, 177, 177)
+			indicator.BorderSizePixel = 0
+			indicator.Size = UDim2.fromScale(0, 1)
 
 			local uICorner = Instance.new("UICorner")
 			uICorner.Name = "UICorner"
-			uICorner.CornerRadius = UDim.new(0, 80)
-			uICorner.Parent = bar
+			uICorner.CornerRadius = UDim.new(0, 2)
+			uICorner.Parent = indicator
 
-			bar.Parent = slider1
+			local holderButton = Instance.new("TextLabel")
+			holderButton.Name = "HolderButton"
+			holderButton.FontFace = Font.new("rbxasset://fonts/families/SourceSansPro.json")
+			holderButton.Text = ""
+			holderButton.TextColor3 = Color3.fromRGB(0, 0, 0)
+			holderButton.TextSize = 14
+			holderButton.AnchorPoint = Vector2.new(0.5, 0.5)
+			holderButton.BackgroundColor3 = Color3.fromRGB(177, 177, 177)
+			holderButton.BorderSizePixel = 0
+			holderButton.Position = UDim2.fromScale(1, 0.5)
+			holderButton.Size = UDim2.new(0, 10, 1, 0)
 
 			local uICorner1 = Instance.new("UICorner")
 			uICorner1.Name = "UICorner"
-			uICorner1.CornerRadius = UDim.new(0, 80)
-			uICorner1.Parent = slider1
+			uICorner1.CornerRadius = UDim.new(0, 3)
+			uICorner1.Parent = holderButton
 
-			slider1.Parent = slider
-
-			local value = Instance.new("TextBox")
-			value.Name = "value"
-			value.CursorPosition = -1
-			value.FontFace = Font.new("rbxasset://fonts/families/RobotoMono.json")
-			value.Text = "50"
-			value.TextColor3 = Color3.fromRGB(177, 177, 177)
+			local value = Instance.new("TextLabel")
+			value.Name = "Value"
+			value.FontFace = Font.new("rbxasset://fonts/families/Ubuntu.json")
+			value.Text = "0"
+			value.TextColor3 = Color3.fromRGB(255, 255, 255)
 			value.TextSize = 14
-			value.AnchorPoint = Vector2.new(0, 0.5)
-			value.BackgroundColor3 = Color3.fromRGB(36, 36, 36)
+			value.TextTransparency = 1
+			value.AnchorPoint = Vector2.new(0.5, 0.5)
+			value.BackgroundColor3 = Color3.fromRGB(38, 38, 38)
+			value.BackgroundTransparency = 1
 			value.BorderSizePixel = 0
-			value.Position = UDim2.fromScale(1.02, 0.5)
-			value.Size = UDim2.fromScale(0.0979, 0.6)
+			value.Position = UDim2.fromScale(0.5, -1.2)
+			value.Size = UDim2.fromOffset(36, 18)
 
 			local uICorner2 = Instance.new("UICorner")
 			uICorner2.Name = "UICorner"
 			uICorner2.CornerRadius = UDim.new(0, 3)
 			uICorner2.Parent = value
 
-			value.Parent = slider
+			value.Parent = holderButton
+
+			local arrowPointingDown = Instance.new("TextLabel")
+			arrowPointingDown.Name = "ArrowPointingDown"
+			arrowPointingDown.FontFace = Font.new("rbxasset://fonts/families/Ubuntu.json")
+			arrowPointingDown.Text = ""
+			arrowPointingDown.TextColor3 = Color3.fromRGB(255, 255, 255)
+			arrowPointingDown.TextSize = 14
+			arrowPointingDown.AnchorPoint = Vector2.new(0.5, 0.5)
+			arrowPointingDown.BackgroundColor3 = Color3.fromRGB(38, 38, 38)
+			arrowPointingDown.BackgroundTransparency = 1
+			arrowPointingDown.BorderSizePixel = 0
+			arrowPointingDown.Position = UDim2.fromScale(0.5, -0.9)
+			arrowPointingDown.Rotation = 45
+			arrowPointingDown.Size = UDim2.fromOffset(13, 13)
+			arrowPointingDown.ZIndex = 0
+
+			local uICorner3 = Instance.new("UICorner")
+			uICorner3.Name = "UICorner"
+			uICorner3.CornerRadius = UDim.new(0, 3)
+			uICorner3.Parent = arrowPointingDown
+
+			arrowPointingDown.Parent = holderButton
+
+			holderButton.Parent = indicator
+
+			indicator.Parent = slider
+
+			local uICorner4 = Instance.new("UICorner")
+			uICorner4.Name = "UICorner"
+			uICorner4.CornerRadius = UDim.new(0, 2)
+			uICorner4.Parent = slider
+
+			local value1 = Instance.new("IntValue")
+			value1.Name = "Value"
+			value1.Parent = slider
+
+			local uIGradient = Instance.new("UIGradient")
+			uIGradient.Name = "UIGradient"
+			uIGradient.Color = ColorSequence.new({
+				ColorSequenceKeypoint.new(0, Color3.fromRGB(200, 200, 200)),
+				ColorSequenceKeypoint.new(1, Color3.fromRGB(255, 255, 255)),
+			})
+			uIGradient.Parent = slider
+
+			slider.Parent = sframe
+
+			local text = Instance.new("TextLabel")
+			text.Name = "text"
+			text.Text = sliderText
+			text.FontFace = Font.new("rbxasset://fonts/families/RobotoMono.json")
+			text.Text = "Slider"
+			text.TextColor3 = Color3.fromRGB(177, 177, 177)
+			text.TextSize = 14
+			text.TextXAlignment = Enum.TextXAlignment.Left
+			text.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+			text.BackgroundTransparency = 1
+			text.BorderSizePixel = 0
+			text.Position = UDim2.fromScale(0.0171, 0)
+			text.Size = UDim2.fromOffset(154, 28)
+			text.Parent = sframe
 			
-			local mouse = game.Players.LocalPlayer:GetMouse()
-			local sliderPosX,sliderSizeX,held = slider1.AbsolutePosition.X,slider1.AbsoluteSize.X,false
+			local Dragging = false
 			
-			slider1.MouseButton1Down:Connect(function()
-				held = true
-				bar.Size = UDim2.new(math.clamp((mouse.X - sliderPosX)/sliderSizeX,0,1),0,1,0)
-				value.Text = math.floor(bar.Size.X.Scale * max)
-				local _callbackState, _callbackError = pcall(function()callback(math.floor(bar.Size.X.Scale * max));end)
-				if not _callbackState and _callbackError then
-					return error(string.format("[mopsHub Callback Error]: %s", _callbackError or "unknown error"))
+			local function Update()
+				if Dragging == true then
+					local MousePos = UserInputService:GetMouseLocation()
+					local MinPoint = (slider.AbsolutePosition.X)
+					local MaxPoint = (slider.AbsolutePosition.X + slider.AbsoluteSize.X)
+
+					if MousePos.X < MinPoint then
+						slider.Indicator:TweenSize(UDim2.fromScale(0, 1), "Out", "Sine", 0.1, true)
+					elseif MousePos.X > MaxPoint then
+						slider.Indicator:TweenSize(UDim2.fromScale(1, 1), "Out", "Sine", 0.1, true)
+					else
+						slider.Indicator:TweenSize(UDim2.fromScale((MousePos.X - slider.AbsolutePosition.X) / slider.AbsoluteSize.X, 1), "Out", "Sine", 0.1, true)
+					end
+					task.wait(0.1)
+					local Percent = (slider.Indicator.HolderButton.AbsolutePosition.X - slider.AbsolutePosition.X) / (slider.AbsoluteSize.X - slider.Indicator.HolderButton.Size.X.Offset) * max
+					slider.Value.Value = Percent
+					if math.floor(slider.Value.Value) < min then
+						slider.Value.Value = min
+					elseif math.floor(slider.Value.Value) > max then
+						slider.Value.Value = max
+					end
+					slider.Indicator.HolderButton.Value.Text = tostring(math.floor(slider.Value.Value))
+					callback(slider.Value.Value)
+				end
+			end
+
+			slider.MouseEnter:Connect(function()
+				if Dragging == false then
+					TS:Create(holderButton, TweenInfo.new(0.1, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.fromRGB(200, 200, 200)}):Play()
 				end
 			end)
 
-			game:GetService("UserInputService").InputEnded:Connect(function(input, gp)
-				if input.UserInputType == Enum.UserInputType.MouseButton1 then
-					held = false
+			slider.MouseLeave:Connect(function()
+				if Dragging == false then
+					TS:Create(holderButton, TweenInfo.new(0.1, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.fromRGB(190, 190, 190)}):Play()
+				end	
+			end)
+
+			slider.MouseButton1Down:Connect(function()
+				Dragging = true
+				TS:Create(slider.Indicator.HolderButton, TweenInfo.new(0.1, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.fromRGB(255, 255, 255)}):Play()
+				TS:Create(slider.Indicator.HolderButton.Value, TweenInfo.new(0.1, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {BackgroundTransparency = 0, TextTransparency = 0}):Play()
+				TS:Create(slider.Indicator.HolderButton.ArrowPointingDown, TweenInfo.new(0.1, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {BackgroundTransparency = 0}):Play()
+				Update()
+			end)
+
+			UserInputService.InputEnded:Connect(function(Input)
+				if Input.UserInputType == Enum.UserInputType.MouseButton1 then
+					Dragging = false
+					TS:Create(slider.Indicator.HolderButton, TweenInfo.new(0.1, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.fromRGB(190, 190, 190)}):Play()
+					TS:Create(slider.Indicator.HolderButton.Value, TweenInfo.new(0.1, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {BackgroundTransparency = 1, TextTransparency = 1}):Play()
+					TS:Create(slider.Indicator.HolderButton.ArrowPointingDown, TweenInfo.new(0.1, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {BackgroundTransparency = 1}):Play()
 				end
 			end)
 
-			mouse.Move:Connect(function()
-				if held then
-					bar.Size = UDim2.new(math.clamp((mouse.X - sliderPosX)/sliderSizeX,0,1),0,1,0)
-					value.Text = math.floor(bar.Size.X.Scale * max)
-				end
-			end)
+			UserInputService.InputChanged:Connect(Update)
 
-			value.FocusLost:Connect(function()
-				if typeof(tonumber(value.Text)) == "number" then
-					local num = math.clamp(tonumber(value.Text), min, max)
-					bar.Size = UDim2.new(num/max, 0, 1, 0)
-					value.Text = tostring(num)
-				else
-					delay(0.5,function()
-						value.Text = math.floor(bar.Size.X.Scale * max)
-					end)
-				end
-			end)
+			local Percent = (slider.Indicator.HolderButton.AbsolutePosition.X - slider.AbsolutePosition.X) / (slider.AbsoluteSize.X - slider.Indicator.HolderButton.Size.X.Offset) * max
 
-			slider1.Parent = slider
-			slider.Parent = tab
+			if math.floor(slider.Value.Value) < min then
+				slider.Value.Value = min
+			elseif math.floor(slider.Value.Value) > max then
+				slider.Value.Value = max
+			end
+
+			slider.Indicator.HolderButton.Value.Text = tostring(math.floor(slider.Value.Value))
+			
+			sframe.Parent = tab
 		end
 
 
