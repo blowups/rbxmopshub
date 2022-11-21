@@ -978,10 +978,6 @@ function WindowTable:CreateWindow(args)
 						slider.Value.Value = max
 					end
 					slider.Indicator.HolderButton.Value.Text = tostring(math.floor(slider.Value.Value))
-					if not (lastValue == slider.Value.Value) then
-						lastValue = slider.Value.Value
-						callback(slider.Value.Value)
-					end
 				end
 			end
 
@@ -1011,6 +1007,10 @@ function WindowTable:CreateWindow(args)
 					--TS:Create(slider.Indicator.HolderButton, TweenInfo.new(0.1, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.fromRGB(190, 190, 190)}):Play()
 					TS:Create(slider.Indicator.HolderButton.Value, TweenInfo.new(0.1, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {BackgroundTransparency = 1, TextTransparency = 1}):Play()
 					TS:Create(slider.Indicator.HolderButton.ArrowPointingDown, TweenInfo.new(0.1, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {BackgroundTransparency = 1}):Play()
+					if not (lastValue == slider.Value.Value) then
+						lastValue = slider.Value.Value
+						callback(slider.Value.Value)
+					end
 				end
 			end)
 
