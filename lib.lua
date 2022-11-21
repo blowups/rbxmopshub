@@ -2,17 +2,25 @@ local UIS = game:GetService('UserInputService')
 local TS = game:GetService("TweenService")
 local WindowTable = {}
 
-for i,v in pairs(game.Players.LocalPlayer.PlayerGui:GetChildren()) do
-	if v.Name == "mopshubui" then
-		v:Destroy()
+--> Check for duplicates
+if game["Run Service"]:IsStudio() then
+	for i,v in pairs(game.Players.LocalPlayer.PlayerGui:GetChildren()) do
+		if v.Name == "mopshubui" then
+			v:Destroy()
+		end
+	end
+else
+	for i,v in pairs(game.CoreGui:GetChildren()) do
+		if v.Name == "mopshubui" then
+			v:Destroy()
+		end
 	end
 end
 
-function WindowTable:Window(args)
-	local WindowTitle = args.title or "mopsHub"
-	local gameName = args.gameName or game.Name or "-"
-
-	-- Instances:
+--> Create Window Function
+function WindowTable:CreateWindow(args)
+	local WindowTitle = tostring(args.title) or "Untitled Hub"
+	local gameName = tostring(args.gameName) or game.Name or "-"
 
 	local mopshubui = Instance.new("ScreenGui")
 	local introClipper = Instance.new("Frame")
@@ -24,10 +32,12 @@ function WindowTable:Window(args)
 	local mH = Instance.new("TextLabel")
 	local title = Instance.new("TextLabel")
 
-	--Properties:
-
 	mopshubui.Name = "mopshubui"
-	mopshubui.Parent = game.Players.LocalPlayer.PlayerGui
+	if game["Run Service"]:IsStudio() then
+		mopshubui.Parent = game.Players.LocalPlayer.PlayerGui
+	else
+		mopshubui.Parent = game.CoreGui
+	end
 	mopshubui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
 	introClipper.Name = "introClipper"
@@ -162,58 +172,21 @@ function WindowTable:Window(args)
 	hub.AnchorPoint = Vector2.new(0.5, 0.5)
 	hub.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
 	hub.BorderSizePixel = 0
-	hub.Position = UDim2.fromScale(0.171, 0.499)
+	hub.ClipsDescendants = true
+	hub.Position = UDim2.fromScale(0.15, 0.5)
 	hub.Size = UDim2.fromOffset(447, 280)
-
-	local UserInputService = game:GetService("UserInputService")
-	local gui = hub
-	local dragging
-	local dragInput
-	local dragStart
-	local startPos
-	local mouse = game.Players.LocalPlayer:GetMouse()
-	local x,y = mouse.ViewSizeX, mouse.ViewSizeY
-	local function update(input)
-		local delta = input.Position - dragStart
-		TS:Create(gui, TweenInfo.new(.2), {Position=UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)}):Play()
-	end
-	gui.InputBegan:Connect(function(input)
-		if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
-			dragging = true
-			dragStart = input.Position
-			startPos = gui.Position
-
-			input.Changed:Connect(function()
-				if input.UserInputState == Enum.UserInputState.End then
-					dragging = false
-				end
-			end)
-		end
-	end)
-
-	gui.InputChanged:Connect(function(input)
-		if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
-			dragInput = input
-		end
-	end)
-
-	UserInputService.InputChanged:Connect(function(input)
-		if input == dragInput and dragging then
-			update(input)
-		end
-	end)
 
 	local title = Instance.new("TextLabel")
 	title.Name = "title"
+	title.Text = WindowTitle.. gameName
 	title.FontFace = Font.new("rbxasset://fonts/families/RobotoMono.json")
-	title.Text = "mopsHub - "..gameName
 	title.TextColor3 = Color3.fromRGB(177, 177, 177)
 	title.TextSize = 18
 	title.TextXAlignment = Enum.TextXAlignment.Left
 	title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 	title.BackgroundTransparency = 1
 	title.BorderSizePixel = 0
-	title.Size = UDim2.fromScale(1, 0.112)
+	title.Size = UDim2.fromOffset(447, 31)
 
 	local uIPadding = Instance.new("UIPadding")
 	uIPadding.Name = "UIPadding"
@@ -227,7 +200,7 @@ function WindowTable:Window(args)
 	div.BackgroundColor3 = Color3.fromRGB(31, 31, 31)
 	div.BorderSizePixel = 0
 	div.Position = UDim2.fromScale(0.5, 1)
-	div.Size = UDim2.new(1, 0, 0, 1)
+	div.Size = UDim2.fromOffset(427, 1)
 	div.Parent = title
 
 	title.Parent = hub
@@ -293,7 +266,7 @@ function WindowTable:Window(args)
 	main.BackgroundTransparency = 1
 	main.BorderSizePixel = 0
 	main.Position = UDim2.fromScale(0, 0.556)
-	main.Size = UDim2.fromScale(1, 0.888)
+	main.Size = UDim2.fromOffset(447, 248)
 	main.ZIndex = 2
 
 	local tabs = Instance.new("Frame")
@@ -303,7 +276,7 @@ function WindowTable:Window(args)
 	tabs.BackgroundTransparency = 1
 	tabs.BorderSizePixel = 0
 	tabs.Position = UDim2.fromScale(0, 0.5)
-	tabs.Size = UDim2.fromScale(0.227, 1)
+	tabs.Size = UDim2.fromOffset(99, 238)
 	tabs.ZIndex = 2
 
 	local uICorner1 = Instance.new("UICorner")
@@ -317,7 +290,7 @@ function WindowTable:Window(args)
 	div1.BackgroundColor3 = Color3.fromRGB(31, 31, 31)
 	div1.BorderSizePixel = 0
 	div1.Position = UDim2.fromScale(1, 0.5)
-	div1.Size = UDim2.new(0, 1, 1, 0)
+	div1.Size = UDim2.fromOffset(1, 238)
 	div1.Parent = tabs
 
 	local list = Instance.new("Frame")
@@ -325,7 +298,7 @@ function WindowTable:Window(args)
 	list.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 	list.BackgroundTransparency = 1
 	list.BorderSizePixel = 0
-	list.Size = UDim2.fromScale(1, 1)
+	list.Size = UDim2.fromOffset(99, 238)
 
 	local uIListLayout1 = Instance.new("UIListLayout")
 	uIListLayout1.Name = "UIListLayout"
@@ -358,15 +331,7 @@ function WindowTable:Window(args)
 	tabsf.BorderSizePixel = 0
 	tabsf.ClipsDescendants = true
 	tabsf.Position = UDim2.fromScale(0.62, 0.5)
-	tabsf.Size = UDim2.fromScale(0.76, 1)
-
-	local uIPadding3 = Instance.new("UIPadding")
-	uIPadding3.Name = "UIPadding"
-	uIPadding3.PaddingBottom = UDim.new(0, 5)
-	uIPadding3.PaddingLeft = UDim.new(0, 5)
-	uIPadding3.PaddingRight = UDim.new(0, 0)
-	uIPadding3.PaddingTop = UDim.new(0, 5)
-	uIPadding3.Parent = tabsf
+	tabsf.Size = UDim2.fromOffset(331, 238)
 
 	local uIPageLayout = Instance.new("UIPageLayout")
 	uIPageLayout.Name = "UIPageLayout"
@@ -380,7 +345,117 @@ function WindowTable:Window(args)
 	uIPageLayout.VerticalAlignment = Enum.VerticalAlignment.Center
 	uIPageLayout.Parent = tabsf
 
+	local uIPadding3 = Instance.new("UIPadding")
+	uIPadding3.Name = "UIPadding"
+	uIPadding3.PaddingBottom = UDim.new(0, 5)
+	uIPadding3.PaddingTop = UDim.new(0, 5)
+	uIPadding3.Parent = tabsf
+
 	tabsf.Parent = main
+
+	main.Parent = hub
+	
+	local closed, inanim = false, false
+	close.MouseButton1Click:Connect(function()
+		if not closed then
+			closed = not closed
+			local t = TS:Create(hub, TweenInfo.new(.5), {Size = UDim2.fromOffset(200,280)})
+			t:Play()
+			inanim = true
+			t.Completed:Wait()
+			local t = TS:Create(hub, TweenInfo.new(.5), {Size = UDim2.fromOffset(200,0)})
+			t:Play()
+			t.Completed:Wait()
+			hub.Visible = false
+			inanim = false
+		end
+	end)
+	
+	UIS.InputBegan:Connect(function(Input, IsTyping)
+		if IsTyping or inanim then return end
+		if Input.KeyCode == Enum.KeyCode.RightControl then
+			if closed then
+				closed = not closed
+				hub.Visible = true
+				local t = TS:Create(hub, TweenInfo.new(.5), {Size = UDim2.fromOffset(200,280)})
+				t:Play()
+				inanim = true
+				t.Completed:Wait()
+				local t = TS:Create(hub, TweenInfo.new(.5), {Size = UDim2.fromOffset(447,280)})
+				t:Play()
+				t.Completed:Wait()
+				inanim = false
+			else
+				closed = not closed
+				local t = TS:Create(hub, TweenInfo.new(.5), {Size = UDim2.fromOffset(200,280)})
+				t:Play()
+				inanim = true
+				t.Completed:Wait()
+				local t = TS:Create(hub, TweenInfo.new(.5), {Size = UDim2.fromOffset(200,0)})
+				t:Play()
+				t.Completed:Wait()
+				hub.Visible = false
+				inanim = false
+			end
+		end
+	end)
+	
+	local minimized, inanim2 = false, false
+	min.MouseButton1Click:Connect(function()
+		if inanim2 or inanim then return end
+		if not minimized then
+			minimized = not minimized
+			local t = TS:Create(hub, TweenInfo.new(.5), {Size = UDim2.fromOffset(447,30)})
+			t:Play()
+			inanim2 = true
+			t.Completed:Wait()
+			inanim2 = false
+		else
+			minimized = not minimized
+			local t = TS:Create(hub, TweenInfo.new(.5), {Size = UDim2.fromOffset(447,280)})
+			t:Play()
+			inanim2 = true
+			t.Completed:Wait()
+			inanim2 = false
+		end
+	end)
+	
+	local gui = hub
+	local dragging
+	local dragInput
+	local dragStart
+	local startPos
+	local mouse = game.Players.LocalPlayer:GetMouse()
+	local x,y = mouse.ViewSizeX, mouse.ViewSizeY
+	local function update(input)
+		local delta = input.Position - dragStart
+		TS:Create(gui, TweenInfo.new(.2), {Position=UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)}):Play()
+	end
+	title.InputBegan:Connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+			dragging = true
+			dragStart = input.Position
+			startPos = gui.Position
+
+			input.Changed:Connect(function()
+				if input.UserInputState == Enum.UserInputState.End then
+					dragging = false
+				end
+			end)
+		end
+	end)
+
+	gui.InputChanged:Connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+			dragInput = input
+		end
+	end)
+
+	UIS.InputChanged:Connect(function(input)
+		if input == dragInput and dragging then
+			update(input)
+		end
+	end)
 
 	main.Parent = hub
 	hub.Parent = mopshubui
@@ -570,7 +645,6 @@ function WindowTable:Window(args)
 			title.Name = "title"
 			title.Text = toggleText
 			title.FontFace = Font.new("rbxasset://fonts/families/RobotoMono.json")
-			title.Text = "Toggle Button"
 			title.TextColor3 = Color3.fromRGB(177, 177, 177)
 			title.TextSize = 14
 			title.TextXAlignment = Enum.TextXAlignment.Left
@@ -641,8 +715,109 @@ function WindowTable:Window(args)
 			tgbtn.Parent = tab
 		end
 		
+		function ElementsHandler:CreateCheckbox(args, callback)
+			local checkboxText = args.checkboxText or "Untitled Checkbox"
+			callback = callback or function() end
+			
+			local checkbox = Instance.new("Frame")
+			checkbox.Name = "checkbox"
+			checkbox.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+			checkbox.BackgroundTransparency = 1
+			checkbox.BorderSizePixel = 0
+			checkbox.Size = UDim2.new(1, 0, 0, 30)
+
+			local text = Instance.new("TextLabel")
+			text.Name = "text"
+			text.FontFace = Font.new("rbxasset://fonts/families/RobotoMono.json")
+			text.Text = "Checkbox"
+			text.TextColor3 = Color3.fromRGB(177, 177, 177)
+			text.TextSize = 14
+			text.TextXAlignment = Enum.TextXAlignment.Left
+			text.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+			text.BackgroundTransparency = 1
+			text.BorderSizePixel = 0
+			text.Position = UDim2.fromScale(0.0171, 0)
+			text.Size = UDim2.fromOffset(265, 28)
+			text.Parent = checkbox
+
+			local box = Instance.new("Frame")
+			box.Name = "box"
+			box.AnchorPoint = Vector2.new(1, 0.5)
+			box.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+			box.BackgroundTransparency = 0.95
+			box.BorderSizePixel = 0
+			box.ClipsDescendants = true
+			box.Position = UDim2.fromScale(1, 0.5)
+			box.Size = UDim2.fromOffset(20, 20)
+
+			local uICorner = Instance.new("UICorner")
+			uICorner.Name = "UICorner"
+			uICorner.CornerRadius = UDim.new(0, 3)
+			uICorner.Parent = box
+
+			local uIPadding = Instance.new("UIPadding")
+			uIPadding.Name = "UIPadding"
+			uIPadding.PaddingBottom = UDim.new(0, 3)
+			uIPadding.PaddingLeft = UDim.new(0, 3)
+			uIPadding.PaddingRight = UDim.new(0, 3)
+			uIPadding.PaddingTop = UDim.new(0, 3)
+			uIPadding.Parent = box
+
+			local check = Instance.new("TextButton")
+			check.Name = "check"
+			check.Text = ""
+			check.TextStrokeTransparency = 0
+			check.AutoButtonColor = false
+			check.Active = false
+			check.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+			check.BackgroundTransparency = .999
+			check.BorderSizePixel = 0
+			check.Selectable = false
+			check.Size = UDim2.fromScale(1, 1)
+
+			local uICorner1 = Instance.new("UICorner")
+			uICorner1.Name = "UICorner"
+			uICorner1.CornerRadius = UDim.new(0, 3)
+			uICorner1.Parent = check
+
+			check.Parent = box
+
+			box.Parent = checkbox
+			checkbox.Parent = tab
+			
+			local checked = false
+			
+			check.MouseEnter:Connect(function()
+				if not checked then return end
+				TS:Create(check,TweenInfo.new(.5),{BackgroundTransparency=.5}):Play()
+			end);check.MouseLeave:Connect(function()
+				if not checked then return end
+				TS:Create(check,TweenInfo.new(.5),{BackgroundTransparency=.7}):Play()
+			end);check.MouseButton1Down:Connect(function()
+				if not checked then return end
+				TS:Create(check,TweenInfo.new(.25),{BackgroundTransparency=.35}):Play()
+			end);check.MouseButton1Up:Connect(function()
+				if checked then
+					TS:Create(check,TweenInfo.new(.25),{BackgroundTransparency=.5}):Play()
+				else
+					TS:Create(check,TweenInfo.new(.25),{BackgroundTransparency=.999}):Play()
+				end
+			end);check.MouseButton1Click:Connect(function()
+				checked = not checked
+				if checked then
+					TS:Create(check,TweenInfo.new(.35),{BackgroundTransparency=.999}):Play()
+				else
+					TS:Create(check,TweenInfo.new(.35),{BackgroundTransparency=.7}):Play()
+				end
+				local _callbackState, _callbackError = pcall(function()callback(checked);end)
+				if not _callbackState and _callbackError then
+					return error(string.format("[mopsHub Callback Error]: %s", _callbackError or "unknown error"))
+				end
+			end)
+		end
+		
 		function ElementsHandler:CreateSlider(args, callback)
-			local sliderText = args.sliderText
+			local sliderText = args.sliderText or "Untitled Slider"
 			local min,max = args.min or 0,args.max or 10
 			callback = callback or function() end
 			
@@ -668,7 +843,7 @@ function WindowTable:Window(args)
 			slider.BackgroundTransparency = 0.95
 			slider.BorderSizePixel = 0
 			slider.Position = UDim2.fromScale(1, 0.5)
-			slider.Size = UDim2.fromOffset(150, 10)
+			slider.Size = UDim2.fromOffset(150, 6)
 
 			local indicator = Instance.new("Frame")
 			indicator.Name = "Indicator"
@@ -709,7 +884,7 @@ function WindowTable:Window(args)
 			value.BackgroundColor3 = Color3.fromRGB(38, 38, 38)
 			value.BackgroundTransparency = 1
 			value.BorderSizePixel = 0
-			value.Position = UDim2.fromScale(0.5, -1.2)
+			value.Position = UDim2.fromScale(0.5, -2.3)
 			value.Size = UDim2.fromOffset(36, 18)
 
 			local uICorner2 = Instance.new("UICorner")
@@ -729,7 +904,7 @@ function WindowTable:Window(args)
 			arrowPointingDown.BackgroundColor3 = Color3.fromRGB(38, 38, 38)
 			arrowPointingDown.BackgroundTransparency = 1
 			arrowPointingDown.BorderSizePixel = 0
-			arrowPointingDown.Position = UDim2.fromScale(0.5, -0.9)
+			arrowPointingDown.Position = UDim2.fromScale(0.5, -1.6)
 			arrowPointingDown.Rotation = 45
 			arrowPointingDown.Size = UDim2.fromOffset(13, 13)
 			arrowPointingDown.ZIndex = 0
@@ -768,7 +943,6 @@ function WindowTable:Window(args)
 			text.Name = "text"
 			text.Text = sliderText
 			text.FontFace = Font.new("rbxasset://fonts/families/RobotoMono.json")
-			text.Text = "Slider"
 			text.TextColor3 = Color3.fromRGB(177, 177, 177)
 			text.TextSize = 14
 			text.TextXAlignment = Enum.TextXAlignment.Left
@@ -780,10 +954,11 @@ function WindowTable:Window(args)
 			text.Parent = sframe
 			
 			local Dragging = false
+			local lastValue = nil
 			
 			local function Update()
 				if Dragging == true then
-					local MousePos = UserInputService:GetMouseLocation()
+					local MousePos = UIS:GetMouseLocation()
 					local MinPoint = (slider.AbsolutePosition.X)
 					local MaxPoint = (slider.AbsolutePosition.X + slider.AbsoluteSize.X)
 
@@ -803,7 +978,10 @@ function WindowTable:Window(args)
 						slider.Value.Value = max
 					end
 					slider.Indicator.HolderButton.Value.Text = tostring(math.floor(slider.Value.Value))
-					callback(slider.Value.Value)
+					if not (lastValue == slider.Value.Value) then
+						lastValue = slider.Value.Value
+						callback(slider.Value.Value)
+					end
 				end
 			end
 
@@ -821,22 +999,22 @@ function WindowTable:Window(args)
 
 			slider.MouseButton1Down:Connect(function()
 				Dragging = true
-				TS:Create(slider.Indicator.HolderButton, TweenInfo.new(0.1, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.fromRGB(255, 255, 255)}):Play()
+				--TS:Create(slider.Indicator.HolderButton, TweenInfo.new(0.1, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.fromRGB(255, 255, 255)}):Play()
 				TS:Create(slider.Indicator.HolderButton.Value, TweenInfo.new(0.1, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {BackgroundTransparency = 0, TextTransparency = 0}):Play()
 				TS:Create(slider.Indicator.HolderButton.ArrowPointingDown, TweenInfo.new(0.1, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {BackgroundTransparency = 0}):Play()
 				Update()
 			end)
 
-			UserInputService.InputEnded:Connect(function(Input)
+			UIS.InputEnded:Connect(function(Input)
 				if Input.UserInputType == Enum.UserInputType.MouseButton1 then
 					Dragging = false
-					TS:Create(slider.Indicator.HolderButton, TweenInfo.new(0.1, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.fromRGB(190, 190, 190)}):Play()
+					--TS:Create(slider.Indicator.HolderButton, TweenInfo.new(0.1, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.fromRGB(190, 190, 190)}):Play()
 					TS:Create(slider.Indicator.HolderButton.Value, TweenInfo.new(0.1, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {BackgroundTransparency = 1, TextTransparency = 1}):Play()
 					TS:Create(slider.Indicator.HolderButton.ArrowPointingDown, TweenInfo.new(0.1, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {BackgroundTransparency = 1}):Play()
 				end
 			end)
 
-			UserInputService.InputChanged:Connect(Update)
+			UIS.InputChanged:Connect(Update)
 
 			local Percent = (slider.Indicator.HolderButton.AbsolutePosition.X - slider.AbsolutePosition.X) / (slider.AbsoluteSize.X - slider.Indicator.HolderButton.Size.X.Offset) * max
 
@@ -859,22 +1037,3 @@ function WindowTable:Window(args)
 end
 
 return WindowTable
-
---[[
-local btn = Instance.new("TextButton")
-btn.Name = "btn"
-btn.FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json")
-btn.Text = "Tab Name"
-btn.TextColor3 = Color3.fromRGB(177, 177, 177)
-btn.TextSize = 11
-btn.TextWrapped = true
-btn.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-btn.BackgroundTransparency = 1
-btn.BorderSizePixel = 0
-btn.Size = UDim2.new(1, 0, 0, 30)
-
-local uICorner = Instance.new("UICorner")
-uICorner.Name = "UICorner"
-uICorner.CornerRadius = UDim.new(0, 3)
-uICorner.Parent = btn
-]]
