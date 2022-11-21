@@ -729,7 +729,7 @@ function WindowTable:CreateWindow(args)
 			local text = Instance.new("TextLabel")
 			text.Name = "text"
 			text.FontFace = Font.new("rbxasset://fonts/families/RobotoMono.json")
-			text.Text = "Checkbox"
+			text.Text = checkboxText
 			text.TextColor3 = Color3.fromRGB(177, 177, 177)
 			text.TextSize = 14
 			text.TextXAlignment = Enum.TextXAlignment.Left
