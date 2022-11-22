@@ -56,9 +56,9 @@ tab1:CreateToggle({toggleText="Wallbang"}, function(t)
 	setreadonly(mt, true)
 end)
 
---Slient Aimbot
+--Silent Aimbot
 getgenv().slientaim = false
-tab1:CreateToggle({toggleText="Slient Aimbot"}, function(t)
+tab1:CreateToggle({toggleText="Silent Aimbot"}, function(t)
     getgenv().slientaim = t
 	local CurrentCamera = workspace.CurrentCamera
 	local Players = game.GetService(game, "Players")
