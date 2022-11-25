@@ -1,1 +1,1 @@
-loadstring(game:HttpGet("https://github.com/mopsfl/rbxmopshub/blob/main/load.lua"),true)()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/mopsfl/rbxmopshub/main/load.lua"),true)()
