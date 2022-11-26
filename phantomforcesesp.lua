@@ -48,7 +48,7 @@ Setup()
 shared.max_distance = math.huge
 shared.object_esp_enabled = true
 run_service.RenderStepped:Connect(function()
-	if not shared.object_esp_enabled then
+	if not shared.object_esp_enabled and not getgenv()._esp then
 		return
 	end
 	for _, value in pairs(eps) do
