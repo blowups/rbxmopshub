@@ -1,11 +1,16 @@
 # mopsHub
 mopsHub is a Roblox exploit script for various Games
 
+### Loader
+```lua
+loadstring(game:HttpGet("https://raw.githubusercontent.com/mopsfl/rbxmopshub/main/loader.lua"), true)()
+```
+
 ### Supported Games
-- Arsenal [WORKING 11/27/2022]
-- Phantom Forces [WORKING 11/27/2022]
-- All Of Us Are Dead [WORKING 11/27/2022]
-- Military Simulator [WORKING 11/27/2022]
+- Arsenal
+- Phantom Forces
+- All Of Us Are Dead
+- Military Simulator
 
 ### Features
 ## Arsenal
