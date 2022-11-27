@@ -10,6 +10,7 @@ mopsHub is a Roblox exploit script for various Games
 ### Features
 ## Arsenal
 - Silent Aimbot
+- Wallbang
 - ESP
 - Walkspeed Changer
 - Infinite Jump
