@@ -2,10 +2,10 @@
 mopsHub is a Roblox exploit script for various Games
 
 ### Supported Games
-- Arsenal
-- Phantom Forces
-- All Of Us Are Dead
-- Military Simulator
+- Arsenal [WORKING 11/27/2022]
+- Phantom Forces [WORKING 11/27/2022]
+- All Of Us Are Dead [WORKING 11/27/2022]
+- Military Simulator [WORKING 11/27/2022]
 
 ### Features
 ## Arsenal
