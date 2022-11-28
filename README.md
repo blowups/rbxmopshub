@@ -29,6 +29,8 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/mopsfl/rbxmopshub/mai
 - Infinite Jump
 - Fly
 - Auto Respawn
+- Gun Color Changer
+- Gun Mods
 
 ## All of Us Are Dead
 - Kill All
