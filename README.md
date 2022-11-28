@@ -3,7 +3,7 @@ mopsHub is a Roblox exploit script for various Games
 
 ### Loader
 ```lua
-loadstring(game:HttpGet("https://raw.githubusercontent.com/mopsfl/rbxmopshub/main/loader.lua"), true)()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/mopsfl/rbxmopshub/main/loader.lua"))()
 ```
 
 ### Supported Games
