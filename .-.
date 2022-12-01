@@ -542,11 +542,6 @@ local L_1_, L_2_ = pcall(function()
 			}
 		}
 	}
-	if L_6_ then
-		L_6_("discord.gg/g4EGAwjUAK")
-	else
-		warn("[mopsHub Loader Error]: Missing function writeclipboard. Your executor might be too bad and doesn't support it!")
-	end
 	local L_19_ = L_3_:CreateWindow({
 		Name = "mopsHub - Phantom Forces",
 		LoadingTitle = "mopsHub - Phantom Forces",
@@ -564,7 +559,7 @@ local L_1_, L_2_ = pcall(function()
 			FileName = "MOPSHUBKEY",
 			SaveKey = true,
 			GrabKeyFromSite = false,
-			Key = "8ETVb2UtkTaiwfymcLyxPzRfRoxDfyadJ"
+			Key = "disabled bc of the synapsex rule"
 		}
 	})
 	for L_80_forvar1, L_81_forvar2 in pairs(L_16_) do
