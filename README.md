@@ -11,6 +11,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/mopsfl/rbxmopshub/mai
 - Phantom Forces
 - All Of Us Are Dead
 - Military Simulator
+- Blacksite Zeta
 
 ### Features
 ## Arsenal
@@ -36,6 +37,10 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/mopsfl/rbxmopshub/mai
 - Kill All
 - Gun Mods (Inf Ammo, Rapidfire, ...)
 
-# Military Simulator
+## Military Simulator
 - Gun Mods (Inf Ammo, Rapidfire, ...)
 
+## Blacksite Zeta
+- Gun Mods (No Recoil & No Spread)
+- ESP
+- Teleport
