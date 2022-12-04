@@ -44,3 +44,8 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/mopsfl/rbxmopshub/mai
 - Gun Mods (No Recoil & No Spread)
 - ESP
 - Teleport
+
+## SCP: Roleplay
+- ESP
+- Walkspeed Changer (completely anticheat bypassed)
+- gun mods and teleport are comming very very soon!!!!!!
