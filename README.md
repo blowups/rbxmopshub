@@ -16,11 +16,17 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/mopsfl/rbxmopshub/mai
 ### Features
 ## Arsenal
 - Silent Aimbot
+- FOV
 - Wallbang
 - ESP
 - Walkspeed Changer
 - Infinite Jump
 - Gun Mods (Inf Ammo, Rapidfire, ...)
+- Kill Aura
+- Instant Respawn
+- God Mode
+- Chat Spammer
+- Anti Aim
 
 ## Phantom Forces
 - Silent Aimbot
@@ -34,8 +40,10 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/mopsfl/rbxmopshub/mai
 - Gun Mods
 
 ## All of Us Are Dead
+- Silent Aim
 - Kill All
 - Gun Mods (Inf Ammo, Rapidfire, ...)
+- Infinite Jump
 
 ## Military Simulator
 - Gun Mods (Inf Ammo, Rapidfire, ...)
