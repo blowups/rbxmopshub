@@ -60,5 +60,5 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/mopsfl/rbxmopshub/mai
 
 ## SCP: Roleplay
 - ESP
-- Walkspeed Changer (completely anticheat bypassed)
+- Walkspeed Changer (anticheat bypassed)
 - gun mods and teleport are comming very very soon!!!!!!
