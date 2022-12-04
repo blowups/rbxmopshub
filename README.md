@@ -33,12 +33,16 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/mopsfl/rbxmopshub/mai
 - Silent Aimbot
 - Hit Part
 - Hitbox Extender
-- Chams ESP
+- Walkspeed Changer
+- ESP
+- Radar Hack
 - Infinite Jump
-- Fly
+- Fly [comming back soon]
 - Auto Respawn
-- Gun Color Changer
+- Auto Join new Server on votekick
+- Gun Color Changer [comming back soon]
 - Gun Mods
+- Bunny Hop
 
 ## All of Us Are Dead
 - Silent Aim
