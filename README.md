@@ -12,6 +12,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/mopsfl/rbxmopshub/mai
 - All Of Us Are Dead
 - Military Simulator
 - Blacksite Zeta
+- SCP: Roleplay
 
 ### Features
 ## Arsenal
