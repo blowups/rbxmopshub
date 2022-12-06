@@ -29,20 +29,20 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/mopsfl/rbxmopshub/mai
 - Chat Spammer
 - Anti Aim
 
-## Phantom Forces
-- Silent Aimbot
-- Hit Part
+## Phantom Forces [SEMI-PATCHED]
+- ~Silent Aimbot~
+- ~Hit Part~
 - Hitbox Extender
-- Walkspeed Changer
+- ~Walkspeed Changer~
 - ESP
-- Radar Hack
+- ~Radar Hack~
 - Infinite Jump
 - Fly [comming back soon]
 - Auto Respawn
 - Auto Join new Server on votekick
 - Gun Color Changer [comming back soon]
-- Gun Mods
-- Bunny Hop
+- ~Gun Mods~
+- ~Bunny Hop~
 
 ## All of Us Are Dead
 - Silent Aim
