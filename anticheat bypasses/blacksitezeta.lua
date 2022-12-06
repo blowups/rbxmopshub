@@ -2,7 +2,7 @@
 Disable Blacksite Zeta Local Anticheat
 Game Link: https://www.roblox.com/games/4787647409/Blacksite-Zeta
 
-idk why i 
+idk why i make it look like this, i just like it. ik it can be easily deobfuscated but i dont care bc the game is dead rn and getting big update (i think) soon wich will patch this
 ]]
 
 
