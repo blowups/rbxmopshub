@@ -13,6 +13,8 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/mopsfl/rbxmopshub/mai
 - Military Simulator
 - Blacksite Zeta
 - SCP: Roleplay
+- BIG Paintball
+- Bad Business
 
 ### Features
 ## Arsenal
@@ -54,11 +56,16 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/mopsfl/rbxmopshub/mai
 - Gun Mods (Inf Ammo, Rapidfire, ...)
 
 ## Blacksite Zeta
-- Gun Mods (No Recoil & No Spread)
+- Gun Mods (No Recoil, No Spread, Inf Ammo, Rapidfire, and more...)
 - ESP
+- Fly & Noclip
+- Infinite Jump
 - Teleport
 
 ## SCP: Roleplay
 - ESP
-- Walkspeed Changer (anticheat bypassed)
-- gun mods and teleport are comming very very soon!!!!!!
+- Walkspeed Changer
+- Infinite Jump
+- Disable Jump Cooldown
+- Aim FOV gun Mod
+- more gun mods soon...
