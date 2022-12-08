@@ -1,6 +1,6 @@
 --[[
 This gets the current Weapon Data of the guns in your inventory
-Im trying to make an Infinite Ammo but, yeah idk, game very weird
+Im trying to make an Infinite Ammo but, yeah idk, game very weird xd
 ]]
 
 local g = getgc(true)
