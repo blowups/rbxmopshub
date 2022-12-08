@@ -22,3 +22,28 @@ end
 for _,v in pairs(t) do
     print(_,v)
 end
+--[[
+Returns a table with this dadaaaaa:
+
+Sound: string
+Setup: function
+Shotgun: boolean
+Pistol: boolean
+AimFOV: number
+Ammo: number
+AimDistance: number
+Weight: number
+Damage: number
+Last: number
+Heat: number
+TBB: number
+CurrentAmmo: number
+ReloadAnimTime: number
+Count: number
+ReloadAnim: number
+Reload: number
+Clip: number
+MuzzleVelocity: number
+TBS: number                (if u set this to 0 without changing anything else u have rapidfire -o-)
+
+]]
