@@ -44,6 +44,6 @@ ReloadAnim: number
 Reload: number
 Clip: number
 MuzzleVelocity: number
-TBS: number                (if u set this to 0 without changing anything else u have rapidfire -o-)
+TBS: number                (if u set this to 0 u have rapidfire -o-)
 
 ]]
