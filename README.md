@@ -37,7 +37,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/mopsfl/rbxmopshub/mai
 ## Phantom Forces
 - Silent Aimbot
 - Hit Part
-- Hitbox Extender
+- ~~Hitbox Extender~~
 - Walkspeed Changer
 - ESP
 - Radar Hack
