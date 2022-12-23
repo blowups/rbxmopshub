@@ -1,4 +1,8 @@
 --[[
+
+PATCHED
+this method wont work anymore
+
 Disable Blacksite Zeta Local Anticheat
 Game Link: https://www.roblox.com/games/4787647409/Blacksite-Zeta
 
