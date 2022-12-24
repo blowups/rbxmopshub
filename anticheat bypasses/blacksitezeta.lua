@@ -2,6 +2,9 @@
 
 PATCHED
 this method wont work anymore
+I Made a new one, i'll maybe publish
+Well anyone who got atleast 1 braincell could do ist..
+Just disable all connections from the ac 
 
 Disable Blacksite Zeta Local Anticheat
 Game Link: https://www.roblox.com/games/4787647409/Blacksite-Zeta
