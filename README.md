@@ -9,6 +9,11 @@ mopsHub is a Roblox exploit script for various Games
 loadstring(game:HttpGet("https://raw.githubusercontent.com/mopsfl/rbxmopshub/main/loader.lua"))()
 ```
 
+### Donate
+```
+Bitcoin/Ethereum: 18d8UPgfSqobqhPi32xFKmD8QuVHNrkyTL
+```
+
 
 
 ###### most scripts are open source, if you could use atleast 1 of your braincells, you can find it
